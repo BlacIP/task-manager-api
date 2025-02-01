@@ -1,0 +1,91 @@
+### Get all tasks
+GET http://localhost:8000/api/tasks
+
+### Get a task by ID
+GET http://localhost:8000/api/tasks/{id}
+
+### Create a new task
+POST http://localhost:8000/api/tasks
+Content-Type: application/json
+
+{
+    "title": "New Task",
+    "description": "This is a new task",
+    "dueDate": "2025-02-15T00:00:00.000Z",
+    "priority": "medium",
+    "status": "pending",
+    "assignedUser": "john_doe@example.com",
+    "completed": false
+}
+
+### Update a task by ID
+PUT http://localhost:8000/api/tasks/{id}
+Content-Type: application/json
+
+{
+    "title": "Updated Task",
+    "description": "This task has been updated",
+    "dueDate": "2025-02-20T00:00:00.000Z",
+    "priority": "high",
+    "status": "in-progress",
+    "assignedUser": "john_doe@example.com",
+    "completed": true
+}
+
+### Delete a task by ID
+DELETE http://localhost:8000/api/tasks/{id}
+
+### Get tasks by user email
+GET http://localhost:8000/api/tasks/user/{email}
+
+### Get user task statistics
+GET http://localhost:8000/api/tasks/user/{email}/stats
+
+### Get tasks by status
+GET http://localhost:8000/api/tasks/status/{status}
+
+### Get tasks by priority
+GET http://localhost:8000/api/tasks/priority/{priority}
+
+### Get tasks by multiple statuses
+POST http://localhost:8000/api/tasks/status/multiple
+Content-Type: application/json
+
+{
+    "statuses": ["pending", "in-progress"]
+}
+
+### Get tasks by multiple priorities
+POST http://localhost:8000/api/tasks/priority/multiple
+Content-Type: application/json
+
+{
+    "priorities": ["low", "medium"]
+}
+
+### Get tasks due by a specific date
+GET http://localhost:8000/api/tasks/due/{date}
+
+### Get tasks by date range
+GET http://localhost:8000/api/tasks/date-range
+Content-Type: application/json
+
+{
+    "startDate": "2025-01-01",
+    "endDate": "2025-01-31"
+}
+
+### Get recent tasks
+GET http://localhost:8000/api/tasks/recent
+
+### Get overdue tasks
+GET http://localhost:8000/api/tasks/overdue
+
+### Get status statistics
+GET http://localhost:8000/api/tasks/stats/status
+
+### Get priority statistics
+GET http://localhost:8000/api/tasks/stats/priority
+
+### Search tasks
+GET http://localhost:8000/api/tasks/search?query={query}
