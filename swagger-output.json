@@ -1,15 +1,14 @@
 {
   "swagger": "2.0",
   "info": {
-    "title": "Contacts API",
+    "title": "Task Manager APi",
     "description": "API documentation for the Contacts application",
     "version": "1.0.0"
   },
   "host": "localhost:3000",
   "basePath": "/",
   "schemes": [
-    "http",
-    "https"
+    "http"
   ],
   "paths": {
     "/": {

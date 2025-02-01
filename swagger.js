@@ -13,4 +13,9 @@ const doc = {
 const outputFile = './swagger-output.json';
 const endpointsFiles = ['./routes/index.js'];
 
-swaggerAutogen(outputFile, endpointsFiles, doc);
+console.log('Generating Swagger documentation...');
+swaggerAutogen(outputFile, endpointsFiles, doc).then(() => {
+    console.log('Swagger documentation generated successfully.');
+}).catch((err) => {
+    console.error('Error generating Swagger documentation:', err);
+});
