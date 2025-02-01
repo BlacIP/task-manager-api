@@ -5,6 +5,8 @@ const errorHandler = require('./middleware/errorHandler');
 //const AppError = require('./helpers/errorTypes');
 require('dotenv').config();
 
+process.env.NODE_ENV = process.env.NODE_ENV || 'development';
+
 const app = express();
 
 // Middleware
@@ -28,13 +30,24 @@ app.use(express.json());
 const routes = require('./routes/index');
 app.use('/api', routes);
 
-// Handle undefined routes
-app.all('*', (req, res, next) => {
-    next(new AppError(`Can't find ${req.originalUrl} on this server!`, 404));
-});
-
 // Error handling middleware
 app.use(errorHandler);
+
+// Handle unhandled rejections
+process.on('unhandledRejection', (err) => {
+    console.error('UNHANDLED REJECTION! 💥 Shutting down...');
+    console.error(err);
+    process.exit(1);
+});
+
+// Handle uncaught exceptions
+process.on('uncaughtException', (err) => {
+    console.error('UNCAUGHT EXCEPTION! 💥 Shutting down...');
+    console.error(err);
+    process.exit(1);
+});
+
+
 
 // Start server
 const PORT = process.env.PORT || 3000;
