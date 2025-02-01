@@ -28,6 +28,8 @@ app.use((req, res, next) => {
 // Routes
 const routes = require('./routes/index');
 app.use('/api', routes);
+app.use('/', routes);   
+
 
 // Error handling middleware
 app.use(errorHandler);
