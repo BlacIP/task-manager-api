@@ -5,6 +5,7 @@ const errorHandler = require('./middleware/errorHandler');
 require('dotenv').config();
 const swaggerUi = require('swagger-ui-express');
 const swaggerFile = require('./swagger-output.json');
+const cors = require('cors');
 
 process.env.NODE_ENV = process.env.NODE_ENV || 'development';
 
@@ -14,18 +15,7 @@ const app = express();
 app.use(express.json());
 
 // CORS middleware
-app.use((req, res, next) => {
-    res.setHeader('Access-Control-Allow-Origin', '*');
-    res.setHeader(
-        'Access-Control-Allow-Headers',
-        'Origin, X-Requested-With, Content-Type, Accept, Authorization'
-    );
-    res.setHeader(
-        'Access-Control-Allow-Methods',
-        'GET, POST, PATCH, PUT, DELETE, OPTIONS'
-    );
-    next();
-});
+app.use(cors());
 
 // Routes
 const routes = require('./routes/index');
@@ -45,14 +35,14 @@ app.use(errorHandler);
 
 // Handle unhandled rejections
 process.on('unhandledRejection', (err) => {
-    console.error('UNHANDLED REJECTION! 💥 Shutting down...');
+    console.error('UNHANDLED REJECTION!Shutting down...');
     console.error(err);
     process.exit(1);
 });
 
 // Handle uncaught exceptions
 process.on('uncaughtException', (err) => {
-    console.error('UNCAUGHT EXCEPTION! 💥 Shutting down...');
+    console.error('UNCAUGHT EXCEPTION!Shutting down...');
     console.error(err);
     process.exit(1);
 });
