@@ -3,10 +3,10 @@ const swaggerAutogen = require('swagger-autogen')();
 
 const doc = {
     info: {
-        title: 'Contacts API',
+        title: 'Task Manager APi',
         description: 'API documentation for the Contacts application',
     },
-    schemes: ['http', 'https'],
+    schemes: process.env.NODE_ENV === 'production' ? ['https'] : ['http'],
     //basePath: '/contacts',
 };
 
