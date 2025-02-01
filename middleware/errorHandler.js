@@ -1,5 +1,5 @@
 // middleware/errorHandler.js
-const AppError = require('../helpers/errorTypes');
+const { AppError } = require('../helpers/errorTypes');  // Changed this line to destructure AppError
 
 const handleCastErrorDB = (err) => {
     const message = `Invalid ${err.path}: ${err.value}`;

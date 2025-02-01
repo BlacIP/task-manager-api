@@ -10,6 +10,7 @@ class AppError extends Error {
     }
 }
 
+// User-related errors
 class UserNotFoundError extends AppError {
     constructor(message = 'User not found') {
         super(message, 404);
@@ -28,9 +29,54 @@ class ValidationError extends AppError {
     }
 }
 
+// Task-related errors
+class TaskNotFoundError extends AppError {
+    constructor(message = 'Task not found') {
+        super(message, 404);
+    }
+}
+
+class TaskValidationError extends AppError {
+    constructor(message) {
+        super(message, 400);
+    }
+}
+
+class DuplicateTaskError extends AppError {
+    constructor(message = 'Task with similar details already exists') {
+        super(message, 409);
+    }
+}
+
+class InvalidTaskStatusError extends AppError {
+    constructor(message = 'Invalid task status') {
+        super(message, 400);
+    }
+}
+
+class InvalidTaskPriorityError extends AppError {
+    constructor(message = 'Invalid task priority') {
+        super(message, 400);
+    }
+}
+
+class InvalidDateError extends AppError {
+    constructor(message = 'Invalid date format') {
+        super(message, 400);
+    }
+}
+
 module.exports = {
     AppError,
+    // User errors
     UserNotFoundError,
     DuplicateEmailError,
-    ValidationError
+    ValidationError,
+    // Task errors
+    TaskNotFoundError,
+    TaskValidationError,
+    DuplicateTaskError,
+    InvalidTaskStatusError,
+    InvalidTaskPriorityError,
+    InvalidDateError
 };
