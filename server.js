@@ -3,6 +3,8 @@ const express = require('express');
 const { initDb } = require('./database/connect');
 const errorHandler = require('./middleware/errorHandler');
 require('dotenv').config();
+const swaggerUi = require('swagger-ui-express');
+const swaggerFile = require('./swagger-output.json');
 
 process.env.NODE_ENV = process.env.NODE_ENV || 'development';
 
@@ -29,6 +31,13 @@ app.use((req, res, next) => {
 const routes = require('./routes/index');
 app.use('/api', routes);
 app.use('/', routes);   
+
+app.use('/api-docs', (req, res, next) => {
+    swaggerFile.host = req.get('host');
+    swaggerFile.schemes = [req.protocol];
+    req.swaggerDoc = swaggerFile;
+    next();
+}, swaggerUi.serve, swaggerUi.setup(swaggerFile));
 
 
 // Error handling middleware
