@@ -2,7 +2,6 @@
 const express = require('express');
 const { initDb } = require('./database/connect');
 const errorHandler = require('./middleware/errorHandler');
-//const AppError = require('./helpers/errorTypes');
 require('dotenv').config();
 
 process.env.NODE_ENV = process.env.NODE_ENV || 'development';
@@ -13,18 +12,18 @@ const app = express();
 app.use(express.json());
 
 // CORS middleware
-// app.use((req, res, next) => {
-//     res.setHeader('Access-Control-Allow-Origin', '*');
-//     res.setHeader(
-//         'Access-Control-Allow-Headers',
-//         'Origin, X-Requested-With, Content-Type, Accept, Authorization'
-//     );
-//     res.setHeader(
-//         'Access-Control-Allow-Methods',
-//         'GET, POST, PATCH, PUT, DELETE, OPTIONS'
-//     );
-//     next();
-// });
+app.use((req, res, next) => {
+    res.setHeader('Access-Control-Allow-Origin', '*');
+    res.setHeader(
+        'Access-Control-Allow-Headers',
+        'Origin, X-Requested-With, Content-Type, Accept, Authorization'
+    );
+    res.setHeader(
+        'Access-Control-Allow-Methods',
+        'GET, POST, PATCH, PUT, DELETE, OPTIONS'
+    );
+    next();
+});
 
 // Routes
 const routes = require('./routes/index');
