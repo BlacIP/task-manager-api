@@ -1,0 +1,48 @@
+[
+    {
+      "title": "Complete Project",
+      "description": "Finish the Node.js API project",
+      "dueDate": "2025-02-28T23:59:59.000Z",
+      "priority": "high",
+      "status": "in-progress",
+      "assignedUser": "john_doe@example.com",
+      "createdAt": "2025-01-31T14:00:00.000Z"
+    },
+    {
+      "title": "Fix Bugs",
+      "description": "Resolve the issues in the user authentication system",
+      "dueDate": "2025-02-10T23:59:59.000Z",
+      "priority": "medium",
+      "status": "pending",
+      "assignedUser": "jane_smith@example.com",
+      "createdAt": "2025-01-28T10:30:00.000Z"
+    },
+    {
+      "title": "Design UI",
+      "description": "Create the wireframes for the admin dashboard",
+      "dueDate": "2025-02-15T23:59:59.000Z",
+      "priority": "low",
+      "status": "not-started",
+      "assignedUser": "alice_johnson@example.com",
+      "createdAt": "2025-01-25T09:45:00.000Z"
+    },
+    {
+      "title": "Write Documentation",
+      "description": "Prepare the user guide and API docs",
+      "dueDate": "2025-02-20T23:59:59.000Z",
+      "priority": "medium",
+      "status": "in-progress",
+      "assignedUser": "bob_white@example.com",
+      "createdAt": "2025-01-22T16:20:00.000Z"
+    },
+    {
+      "title": "Update Dependencies",
+      "description": "Upgrade the project dependencies to the latest versions",
+      "dueDate": "2025-02-05T23:59:59.000Z",
+      "priority": "low",
+      "status": "pending",
+      "assignedUser": "david_brown@example.com",
+      "createdAt": "2025-01-20T12:00:00.000Z"
+    }
+  ]
+  
