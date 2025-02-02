@@ -1,4 +1,3 @@
-// models/task.js
 const { ObjectId } = require('mongodb');
 const { getDb } = require('../database/connect');
 const { 
@@ -62,27 +61,22 @@ class Task {
 
     static async create(taskData) {
         try {
-            // Validate required fields
             const requiredFields = ['title', 'description', 'dueDate', 'assignedUser'];
             for (const field of requiredFields) {
                 if (!taskData[field]) {
                     throw new TaskValidationError(`${field} is required`);
                 }
             }
-
-            // Validate date
             const dueDate = new Date(taskData.dueDate);
             if (isNaN(dueDate.getTime())) {
                 throw new InvalidDateError('Invalid due date format');
             }
 
-            // Validate priority
             const validPriorities = ['low', 'medium', 'high'];
             if (taskData.priority && !validPriorities.includes(taskData.priority)) {
                 throw new InvalidTaskPriorityError('Priority must be low, medium, or high');
             }
 
-            // Validate status
             const validStatuses = ['pending', 'in-progress', 'not-started', 'completed'];
             if (taskData.status && !validStatuses.includes(taskData.status)) {
                 throw new InvalidTaskStatusError('Status must be pending, in-progress, not-started, or completed');
@@ -114,16 +108,12 @@ class Task {
     
             const objectId = new ObjectId(id);
             const collection = getTaskCollection();
-    
-            // Verify task exists first
             const existingTask = await collection.findOne({ _id: objectId });
             //console.log('Existing task:', existingTask);
             
             if (!existingTask) {
                 throw new TaskNotFoundError(`No task found with id: ${id}`);
             }
-    
-            // Perform validation
             if (updateData.dueDate) {
                 const dueDate = new Date(updateData.dueDate);
                 if (isNaN(dueDate.getTime())) {
@@ -131,8 +121,7 @@ class Task {
                 }
                 updateData.dueDate = dueDate;
             }
-    
-            // Update document
+
             const updateResult = await collection.updateOne(
                 { _id: objectId },
                 { 
@@ -148,8 +137,7 @@ class Task {
             if (updateResult.matchedCount === 0) {
                 throw new TaskNotFoundError(`No task found with id: ${id}`);
             }
-    
-            // Fetch and return updated document
+
             const updatedTask = await collection.findOne({ _id: objectId });
             return updatedTask;
     

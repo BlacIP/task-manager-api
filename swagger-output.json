@@ -2,7 +2,7 @@
   "swagger": "2.0",
   "info": {
     "title": "Task Manager APi",
-    "description": "API documentation for the Contacts application",
+    "description": "API documentation for the Task Manager application",
     "version": "1.0.0"
   },
   "host": "localhost:3000",
@@ -21,15 +21,32 @@
         }
       }
     },
-    "/users/email/{email}": {
+    "/users/": {
       "get": {
+        "description": "",
+        "responses": {
+          "default": {
+            "description": ""
+          }
+        }
+      },
+      "post": {
         "description": "",
         "parameters": [
           {
-            "name": "email",
-            "in": "path",
-            "required": true,
-            "type": "string"
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "email": {
+                  "example": "any"
+                },
+                "name": {
+                  "example": "any"
+                }
+              }
+            }
           }
         ],
         "responses": {
@@ -104,32 +121,15 @@
         }
       }
     },
-    "/users/": {
+    "/users/email/{email}": {
       "get": {
-        "description": "",
-        "responses": {
-          "default": {
-            "description": ""
-          }
-        }
-      },
-      "post": {
         "description": "",
         "parameters": [
           {
-            "name": "body",
-            "in": "body",
-            "schema": {
-              "type": "object",
-              "properties": {
-                "email": {
-                  "example": "any"
-                },
-                "name": {
-                  "example": "any"
-                }
-              }
-            }
+            "name": "email",
+            "in": "path",
+            "required": true,
+            "type": "string"
           }
         ],
         "responses": {

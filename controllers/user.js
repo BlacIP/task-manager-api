@@ -1,4 +1,3 @@
-// controllers/user.js
 const User = require('../models/user');
 const { AppError } = require('../helpers/errorTypes');
 

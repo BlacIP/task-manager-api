@@ -1,4 +1,3 @@
-// middleware/errorHandler.js
 const { AppError } = require('../helpers/errorTypes');
 
 const handleCastErrorDB = (err) => {
@@ -33,14 +32,12 @@ const sendErrorDev = (err, res) => {
 };
 
 const sendErrorProd = (err, res) => {
-    // Operational, trusted error: send message to client
     if (err.isOperational) {
         res.status(err.statusCode).json({
             status: err.status,
             message: err.message
         });
     } 
-    // Programming or other unknown error: don't leak error details
     else {
         console.error('ERROR', err);
         res.status(500).json({
@@ -51,31 +48,23 @@ const sendErrorProd = (err, res) => {
 };
 
 const errorHandler = (err, req, res, next) => {
-    // Ensure error object has basic properties
     err.statusCode = err.statusCode || 500;
     err.status = err.status || 'error';
 
     if (process.env.NODE_ENV === 'development') {
         sendErrorDev(err, res);
     } else {
-        // Create a new error object with all properties
         let error = Object.create(Object.getPrototypeOf(err));
         Object.assign(error, err);
         
-        // Preserve the message
         error.message = err.message;
 
-        // Handle specific error types
         if (error.name === 'CastError') error = handleCastErrorDB(error);
         if (error.code === 11000) error = handleDuplicateFieldsDB(error);
-        if (error.name === 'ValidationError') error = handleValidationErrorDB(error);
-        
-        // Handle MongoDB specific errors
+        if (error.name === 'ValidationError') error = handleValidationErrorDB(error);        
         if (error.kind === 'ObjectId') {
             error = new AppError('Invalid ID format', 400);
         }
-
-        // Handle unexpected errors
         if (!error.isOperational) {
             error = new AppError('Something went wrong!', 500);
         }

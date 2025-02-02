@@ -1,14 +1,12 @@
-// swagger.js
 const swaggerAutogen = require('swagger-autogen')();
 require('dotenv').config();
 
 const doc = {
     info: {
         title: 'Task Manager APi',
-        description: 'API documentation for the Contacts application',
+        description: 'API documentation for the Task Manager application',
     },
     schemes: process.env.NODE_ENV === 'production' ? ['https'] : ['http'],
-    //basePath: '/contacts',
 };
 
 const outputFile = './swagger-output.json';

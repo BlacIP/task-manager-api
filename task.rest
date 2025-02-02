@@ -19,7 +19,7 @@ Content-Type: application/json
 }
 
 ### Update a task by ID
-PUT http://localhost:8000/api/tasks/679eb80f509f3d7efb9f715e
+PUT http://localhost:8000/api/tasks/679e3c2b343dfd361fb68651
 Content-Type: application/json
 
 {
@@ -33,7 +33,7 @@ Content-Type: application/json
 }
 
 ### Delete a task by ID
-DELETE http://localhost:8000/api/tasks/679eb80f509f3d7efb9f715e
+DELETE http://localhost:8000/api/tasks/679e3c2b343dfd361fb68651
 
 ### Get tasks by user email
 GET http://localhost:8000/api/tasks/user/john_doe@example.com

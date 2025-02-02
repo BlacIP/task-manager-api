@@ -1,9 +1,7 @@
-// controllers/task.js
 const Task = require('../models/task');
 const AppError = require('../helpers/errorTypes');
 
 const taskController = {
-    // Basic CRUD operations
     async getAllTasks(req, res) {
         const tasks = await Task.findAll();
         res.json(tasks);
@@ -41,7 +39,6 @@ const taskController = {
         res.json({ message: 'Task deleted successfully' });
     },
 
-    // User-specific tasks
     async getTasksByUser(req, res) {
         try {
             const tasks = await Task.findByAssignedUser(req.params.email);
@@ -60,7 +57,6 @@ const taskController = {
         }
     },
 
-    // Status and Priority based queries
     async getTasksByStatus(req, res) {
         try {
             const tasks = await Task.getTasksByStatus(req.params.status);
@@ -81,7 +77,7 @@ const taskController = {
 
     async getTasksByStatuses(req, res) {
         try {
-            const { statuses } = req.body; // Expect array of statuses
+            const { statuses } = req.body;
             const tasks = await Task.getTasksByStatuses(statuses);
             res.json(tasks);
         } catch (err) {
@@ -91,15 +87,13 @@ const taskController = {
 
     async getTasksByPriorities(req, res) {
         try {
-            const { priorities } = req.body; // Expect array of priorities
+            const { priorities } = req.body;
             const tasks = await Task.getTasksByPriorities(priorities);
             res.json(tasks);
         } catch (err) {
             res.status(500).json({ message: err.message });
         }
     },
-
-    // Date-based queries
     async getTasksDueBy(req, res) {
         try {
             const tasks = await Task.getTasksDueBy(req.params.date);
@@ -137,8 +131,6 @@ const taskController = {
         });
     },
 
-
-    // Statistics
     async getStatusStats(req, res) {
         try {
             const stats = await Task.getStatusStats();
@@ -156,8 +148,6 @@ const taskController = {
             res.status(500).json({ message: err.message });
         }
     },
-
-    // Search
     async searchTasks(req, res) {
         const { searchTerm } = req.query;
         if (!searchTerm) {

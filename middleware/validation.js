@@ -1,11 +1,7 @@
-// middleware/validation.js
-// middleware/validation.js
-
 const { ValidationError } = require('../helpers/errorTypes');
 const validateTask = (req, res, next) => {
     const { title, description, dueDate, priority, status, assignedUser } = req.body;
 
-    // Required fields validation
     if (!title || !description || !dueDate || !assignedUser) {
         return res.status(400).json({
             message: 'Missing required fields',
@@ -13,7 +9,6 @@ const validateTask = (req, res, next) => {
         });
     }
 
-    // Priority validation
     if (priority && !['low', 'medium', 'high'].includes(priority)) {
         return res.status(400).json({
             message: 'Invalid priority value',
@@ -21,7 +16,6 @@ const validateTask = (req, res, next) => {
         });
     }
 
-    // Status validation
     if (status && !['pending', 'in-progress', 'not-started', 'completed'].includes(status)) {
         return res.status(400).json({
             message: 'Invalid status value',
@@ -29,7 +23,6 @@ const validateTask = (req, res, next) => {
         });
     }
 
-    // Date validation
     const dateObj = new Date(dueDate);
     if (isNaN(dateObj.getTime())) {
         return res.status(400).json({
@@ -37,7 +30,6 @@ const validateTask = (req, res, next) => {
         });
     }
 
-    // Email format validation for assignedUser
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!emailRegex.test(assignedUser)) {
         return res.status(400).json({
@@ -48,7 +40,6 @@ const validateTask = (req, res, next) => {
     next();
 };
 
-// Additional validation middlewares for specific routes
 const validateDateRange = (req, res, next) => {
     const { startDate, endDate, dateField } = req.body;
     
@@ -134,18 +125,15 @@ const validatePriorityArray = (req, res, next) => {
 const validateUser = (req, res, next) => {
     const { email, name } = req.body;
 
-    // Required fields validation
     if (!email || !name) {
         throw new ValidationError('Email and name are required');
     }
 
-    // Email format validation
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!emailRegex.test(email)) {
         throw new ValidationError('Invalid email format');
     }
 
-    // Name validation
     if (typeof name !== 'string' || name.trim().length < 2) {
         throw new ValidationError('Name must be at least 2 characters long');
     }

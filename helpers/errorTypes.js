@@ -1,4 +1,3 @@
-// helpers/errorTypes.js
 class AppError extends Error {
     constructor(message, statusCode) {
         super(message);
@@ -13,7 +12,6 @@ class AppError extends Error {
     }
 }
 
-// User-related errors
 class UserNotFoundError extends AppError {
     constructor(message = 'User not found') {
         super(message, 404);
@@ -32,7 +30,6 @@ class ValidationError extends AppError {
     }
 }
 
-// Task-related errors
 class TaskNotFoundError extends AppError {
     constructor(message = 'Task not found') {
         super(message, 404);
@@ -71,11 +68,9 @@ class InvalidDateError extends AppError {
 
 module.exports = {
     AppError,
-    // User errors
     UserNotFoundError,
     DuplicateEmailError,
     ValidationError,
-    // Task errors
     TaskNotFoundError,
     TaskValidationError,
     DuplicateTaskError,
