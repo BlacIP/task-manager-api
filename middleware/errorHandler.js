@@ -42,7 +42,7 @@ const sendErrorProd = (err, res) => {
     } 
     // Programming or other unknown error: don't leak error details
     else {
-        console.error('ERROR 💥', err);
+        console.error('ERROR', err);
         res.status(500).json({
             status: 'error',
             message: 'Something went wrong!'

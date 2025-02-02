@@ -23,6 +23,9 @@ const taskController = {
     },
 
     async updateTask(req, res) {
+        //console.log(`Request to update task with ID: ${req.params.id}`);
+        //console.log(`Request body: ${JSON.stringify(req.body)}`);
+        
         const task = await Task.update(req.params.id, req.body);
         if (!task) {
             throw new AppError('Task not found', 404);
@@ -107,33 +110,33 @@ const taskController = {
     },
 
     async getTasksByDateRange(req, res) {
-        try {
-            const { startDate, endDate } = req.query;
-            const tasks = await Task.getTasksByDateRange(startDate, endDate);
-            res.json(tasks);
-        } catch (err) {
-            res.status(500).json({ message: err.message });
+        const { startDate, endDate, dateField } = req.body;
+        if (!startDate || !endDate || !dateField) {
+            throw new AppError('Start date, end date, and date field are required', 400);
         }
+        const tasks = await Task.getTasksByDateRange(startDate, endDate, dateField);
+        res.json({
+            status: 'success',
+            data: tasks
+        });
     },
 
     async getRecentTasks(req, res) {
-        try {
-            const days = parseInt(req.query.days) || 7;
-            const tasks = await Task.getRecentTasks(days);
-            res.json(tasks);
-        } catch (err) {
-            res.status(500).json({ message: err.message });
-        }
+        const tasks = await Task.getRecentTasks();
+        res.json({
+            status: 'success',
+            data: tasks
+        });
     },
 
     async getOverdueTasks(req, res) {
-        try {
-            const tasks = await Task.getOverdueTasks();
-            res.json(tasks);
-        } catch (err) {
-            res.status(500).json({ message: err.message });
-        }
+        const tasks = await Task.getOverdueTasks();
+        res.json({
+            status: 'success',
+            data: tasks
+        });
     },
+
 
     // Statistics
     async getStatusStats(req, res) {
@@ -156,16 +159,15 @@ const taskController = {
 
     // Search
     async searchTasks(req, res) {
-        try {
-            const { searchTerm } = req.query;
-            if (!searchTerm) {
-                return res.status(400).json({ message: 'Search term is required' });
-            }
-            const tasks = await Task.searchTasks(searchTerm);
-            res.json(tasks);
-        } catch (err) {
-            res.status(500).json({ message: err.message });
+        const { searchTerm } = req.query;
+        if (!searchTerm) {
+            throw new AppError('Search term is required', 400);
         }
+        const tasks = await Task.searchTasks(searchTerm);
+        res.json({
+            status: 'success',
+            data: tasks
+        });
     }
 };
 

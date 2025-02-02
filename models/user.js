@@ -50,35 +50,49 @@ class User {
     }
 
     static async update(id, updateData) {
-        const collection = getUserCollection();
-        
-        // If email is being updated, check for duplicates
-        if (updateData.email) {
-            const existingUser = await collection.findOne({ 
-                email: updateData.email,
-                _id: { $ne: new ObjectId(id) }
-            });
-            if (existingUser) {
-                throw new DuplicateEmailError();
+        try {
+            if (!ObjectId.isValid(id)) {
+                throw new UserNotFoundError('Invalid user ID format');
             }
-        }
-
-        const result = await collection.findOneAndUpdate(
-            { _id: new ObjectId(id) },
-            { 
-                $set: {
-                    ...updateData,
-                    updatedAt: new Date()
+    
+            const collection = getUserCollection();
+            const objectId = new ObjectId(id);
+            
+            // Verify user exists first
+            const existingUser = await collection.findOne({ _id: objectId });
+            if (!existingUser) {
+                throw new UserNotFoundError(`No user found with id: ${id}`);
+            }
+    
+            // Check for email duplicates
+            if (updateData.email && updateData.email !== existingUser.email) {
+                const duplicateEmail = await collection.findOne({ 
+                    email: updateData.email,
+                    _id: { $ne: objectId }
+                });
+                if (duplicateEmail) {
+                    throw new DuplicateEmailError();
                 }
-            },
-            { returnDocument: 'after' }
-        );
-
-        if (!result.value) {
-            throw new UserNotFoundError();
+            }
+    
+            const result = await collection.findOneAndUpdate(
+                { _id: objectId },
+                { 
+                    $set: {
+                        ...updateData,
+                        updatedAt: new Date()
+                    }
+                },
+                { 
+                    returnDocument: 'after'
+                }
+            );
+    
+            return result.value;
+        } catch (error) {
+            //console.error(`Error updating user:`, error);
+            throw error;
         }
-
-        return result.value;
     }
 
     static async delete(id) {

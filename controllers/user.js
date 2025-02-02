@@ -24,10 +24,16 @@ const userController = {
     },
 
     async updateUser(req, res) {
-        const user = await User.update(req.params.id, req.body);
-        res.json(user);
+        const { id } = req.params;
+        //console.log(`Update request for user ID: ${id}`);
+        //console.log('Request body:', req.body);
+        
+        const user = await User.update(id, req.body);
+        res.json({
+            status: 'success',
+            data: user
+        });
     },
-
     async deleteUser(req, res) {
         await User.delete(req.params.id);
         res.json({ message: 'User deleted successfully' });

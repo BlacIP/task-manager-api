@@ -2,7 +2,7 @@
 GET http://localhost:8000/api/users
 
 ### Get a user by ID
-GET http://localhost:8000/api/users/{id}
+GET http://localhost:8000/api/users/679e3d2b6458887de0041771
 
 ### Create a new user
 POST http://localhost:8000/api/users
@@ -10,12 +10,12 @@ Content-Type: application/json
 
 {
     "name": "John Doe",
-    "email": "john_doe@example.com",
+    "email": "johndoe@example.com",
     "password": "password123"
 }
 
 ### Update a user by ID
-PUT http://localhost:8000/api/users/{id}
+PUT http://localhost:8000/api/users/679ec03a5646b46e9da7df9c
 Content-Type: application/json
 
 {
@@ -25,34 +25,9 @@ Content-Type: application/json
 }
 
 ### Delete a user by ID
-DELETE http://localhost:8000/api/users/{id}### Get all users
-GET http://localhost:8000/api/users
+DELETE http://localhost:8000/api/users/679ec03a5646b46e9da7df9c
 
-### Get a user by ID
-GET http://localhost:8000/api/users/{id}
 
 ### Get a user by email
-GET http://localhost:8000/api/users/email/{email}
+GET http://localhost:8000/api/users/email/alice_johnson@example.com
 
-### Create a new user
-POST http://localhost:8000/api/users
-Content-Type: application/json
-
-{
-    "name": "John Doe",
-    "email": "john_doe@example.com",
-    "password": "password123"
-}
-
-### Update a user by ID
-PUT http://localhost:8000/api/users/{id}
-Content-Type: application/json
-
-{
-    "name": "John Doe Updated",
-    "email": "john_doe_updated@example.com",
-    "password": "newpassword123"
-}
-
-### Delete a user by ID
-DELETE http://localhost:8000/api/users/{id}

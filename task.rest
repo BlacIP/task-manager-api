@@ -2,7 +2,7 @@
 GET http://localhost:8000/api/tasks
 
 ### Get a task by ID
-GET http://localhost:8000/api/tasks/679e3c2b343dfd361fb68650
+GET http://localhost:8000/api/tasks/679e3c2b343dfd361fb68651
 
 ### Create a new task
 POST http://localhost:8000/api/tasks
@@ -19,7 +19,7 @@ Content-Type: application/json
 }
 
 ### Update a task by ID
-PUT http://localhost:8000/api/tasks/679e3c2b343dfd361fb6864f
+PUT http://localhost:8000/api/tasks/679eb80f509f3d7efb9f715e
 Content-Type: application/json
 
 {
@@ -33,19 +33,19 @@ Content-Type: application/json
 }
 
 ### Delete a task by ID
-DELETE http://localhost:8000/api/tasks/{id}
+DELETE http://localhost:8000/api/tasks/679eb80f509f3d7efb9f715e
 
 ### Get tasks by user email
-GET http://localhost:8000/api/tasks/user/{email}
+GET http://localhost:8000/api/tasks/user/john_doe@example.com
 
 ### Get user task statistics
-GET http://localhost:8000/api/tasks/user/{email}/stats
+GET http://localhost:8000/api/tasks/user/john_doe@example.com/stats
 
 ### Get tasks by status
-GET http://localhost:8000/api/tasks/status/{status}
+GET http://localhost:8000/api/tasks/status/pending
 
 ### Get tasks by priority
-GET http://localhost:8000/api/tasks/priority/{priority}
+GET http://localhost:8000/api/tasks/priority/medium
 
 ### Get tasks by multiple statuses
 POST http://localhost:8000/api/tasks/status/multiple
@@ -64,16 +64,18 @@ Content-Type: application/json
 }
 
 ### Get tasks due by a specific date
-GET http://localhost:8000/api/tasks/due/{date}
+GET http://localhost:8000/api/tasks/due/2025-02-15
 
 ### Get tasks by date range
-GET http://localhost:8000/api/tasks/date-range
+POST http://localhost:8000/tasks/date-range
 Content-Type: application/json
 
 {
-    "startDate": "2025-01-01",
-    "endDate": "2025-01-31"
+    "startDate": "2025-02-01",
+    "endDate": "2025-02-31",
+    "dateField": "dueDate"
 }
+
 
 ### Get recent tasks
 GET http://localhost:8000/api/tasks/recent
@@ -88,4 +90,5 @@ GET http://localhost:8000/api/tasks/stats/status
 GET http://localhost:8000/api/tasks/stats/priority
 
 ### Search tasks
-GET http://localhost:8000/api/tasks/search?query={query}
+GET http://localhost:8000/api/tasks/search?searchTerm=Updated%20Task
+Content-Type: application/json

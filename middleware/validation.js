@@ -50,26 +50,37 @@ const validateTask = (req, res, next) => {
 
 // Additional validation middlewares for specific routes
 const validateDateRange = (req, res, next) => {
-    const { startDate, endDate } = req.query;
-
-    if (!startDate || !endDate) {
+    const { startDate, endDate, dateField } = req.body;
+    
+    if (!startDate || !endDate || !dateField) {
         return res.status(400).json({
-            message: 'Both startDate and endDate are required'
+            status: 'fail',
+            message: 'Start date, end date, and date field are required'
         });
     }
 
-    const startDateObj = new Date(startDate);
-    const endDateObj = new Date(endDate);
+    const start = new Date(startDate);
+    const end = new Date(endDate);
 
-    if (isNaN(startDateObj.getTime()) || isNaN(endDateObj.getTime())) {
+    if (isNaN(start.getTime()) || isNaN(end.getTime())) {
         return res.status(400).json({
-            message: 'Invalid date format'
+            status: 'fail',
+            message: 'Invalid date format. Use YYYY-MM-DD'
         });
     }
 
-    if (startDateObj > endDateObj) {
+    if (start > end) {
         return res.status(400).json({
-            message: 'startDate must be before endDate'
+            status: 'fail',
+            message: 'Start date must be before end date'
+        });
+    }
+
+    const validDateFields = ['createdDate', 'dueDate'];
+    if (!validDateFields.includes(dateField)) {
+        return res.status(400).json({
+            status: 'fail',
+            message: 'Invalid date field. Use "createdDate" or "dueDate"'
         });
     }
 
