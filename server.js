@@ -18,17 +18,16 @@ app.use(express.json());
 app.use(cors());
 
 app.use(session({
-    secret: process.env.SESSION_SECRET,
+    secret: process.env.SESSION_SECRET || 'secret',
     resave: false,
-    saveUninitialized: false
+    saveUninitialized: true
 }));
 
 app.use(passport.initialize());
 app.use(passport.session());
-
-app.use('/api', routes);
+  
 app.use('/auth', authRoutes);
-app.use('/', routes);   
+app.use('/', routes);
 
 app.use(errorHandler);
 
