@@ -2,7 +2,7 @@
 GET http://localhost:8000/api/users
 
 ### Get a user by ID
-GET http://localhost:8000/api/users/679e3d2b6458887de0041771
+GET http://localhost:8000/api/users/67b26e66ab30eeb492c4c5b6
 
 ### Create a new user
 POST http://localhost:8000/api/users
@@ -10,12 +10,12 @@ Content-Type: application/json
 
 {
     "name": "John Doe",
-    "email": "johndoe@example.com",
+    "email": "dam-doe@example.com",
     "password": "password123"
 }
 
 ### Update a user by ID
-PUT http://localhost:8000/api/users/679ec03a5646b46e9da7df9c
+PUT http://localhost:8000/api/users/67b26e66ab30eeb492c4c5b6
 Content-Type: application/json
 
 {

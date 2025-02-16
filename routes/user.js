@@ -9,7 +9,7 @@ router.get('/', asyncWrapper(userController.getAllUsers));
 router.post('/', ensureAuthenticated, validateUser, asyncWrapper(userController.createUser));
 
 router.get('/:id', validateUserId, asyncWrapper(userController.getUserById));
-router.put('/:id', ensureAuthenticated, validateUserId, validateUser, asyncWrapper(userController.updateUser));
+router.put('/:id',ensureAuthenticated, validateUserId, validateUser, asyncWrapper(userController.updateUser));
 router.delete('/:id', ensureAuthenticated, validateUserId, asyncWrapper(userController.deleteUser));
 
 router.get('/email/:email', validateEmail, asyncWrapper(userController.getUserByEmail));

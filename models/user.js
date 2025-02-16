@@ -168,24 +168,25 @@ class User {
     static async update(id, updateData) {
         const collection = getUserCollection();
         const objectId = new ObjectId(id);
-
+    
         if (updateData.password) {
             const salt = await bcrypt.genSalt(10);
             updateData.password = await bcrypt.hash(updateData.password, salt);
         }
-
+    
         const result = await collection.findOneAndUpdate(
             { _id: objectId },
             { $set: { ...updateData, updatedAt: new Date() } },
             { returnDocument: 'after' }
         );
-
-        if (!result.value) {
+    
+        if (!result) {
             throw new UserNotFoundError(`No user found with id: ${id}`);
         }
-
-        return result.value;
+    
+        return result;
     }
+    
 
     static async delete(id) {
         const collection = getUserCollection();

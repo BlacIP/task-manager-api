@@ -22,17 +22,29 @@ const userController = {
         res.status(201).json(user);
     },
 
-    async updateUser(req, res) {
-        const { id } = req.params;
-        //console.log(`Update request for user ID: ${id}`);
-        //console.log('Request body:', req.body);
-        
-        const user = await User.update(id, req.body);
-        res.json({
-            status: 'success',
-            data: user
-        });
-    },
+    async updateUser(req, res, next) {
+        try {
+            const { id } = req.params;
+            console.log(`Update request for user ID: ${id}`);
+            console.log('Request body:', req.body);
+    
+            const user = await User.update(id, req.body);
+            
+            if (!user) {
+                return next(new UserNotFoundError(`No user found with id: ${id}`));
+            }
+    
+            return res.status(200).json({
+                status: 'success',
+                data: {
+                    user
+                }
+            });
+        } catch (error) {
+            return next(error);
+        }
+    }
+    ,
     async deleteUser(req, res) {
         await User.delete(req.params.id);
         res.json({ message: 'User deleted successfully' });
