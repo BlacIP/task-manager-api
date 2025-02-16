@@ -2,6 +2,7 @@
 const express = require('express');
 const passport = require('passport');
 const router = express.Router();
+dotenv = require('dotenv');
 
 // Home route
 router.get('/', (req, res) => {
@@ -20,7 +21,7 @@ router.get('/login', passport.authenticate('github'), (req, res) => {});
 // Initial GitHub auth route
 
 
-router.get('github/callback',
+router.get('/github/callback',
     (req, res, next) => {
         console.log('Hitting callback route');
         next();
